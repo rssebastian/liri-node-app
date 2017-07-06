@@ -1,0 +1,24 @@
+{
+  "name": "liri-rs",
+  "version": "1.0.0",
+  "description": "Ryan Sebastian's LIRI app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rssebastian/liri-node-app.git"
+  },
+  "author": "Ryan Sebastian",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rssebastian/liri-node-app/issues"
+  },
+  "homepage": "https://github.com/rssebastian/liri-node-app#readme",
+  "dependencies": {
+    "node-spotify-api": "^1.0.5",
+    "request": "^2.81.0",
+    "twitter": "^1.7.1"
+  }
+}
