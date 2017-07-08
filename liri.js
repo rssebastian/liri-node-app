@@ -24,6 +24,8 @@ var songTitle = "";
 
 
 var request = require('request');
+var movieTitle = "";
+
 var nodeArgs = process.argv;
 var liriCommandType = process.argv[2];
 
@@ -38,7 +40,7 @@ var liriCommandType = process.argv[2];
  } else if (liriCommandType === `spotify-this-song`) {
  	if (nodeArgs.length === 3) {
  		spotify
- 		.search({ type: 'track', query: 'The Sign' })
+ 		.search({ type: 'track', query: 'The Sign', limit: 5 })
  		.then(function(response) {
  			var songData = JSON.stringify(response, null, 2);
  			fs.writeFile('songData.txt', '', function() {
@@ -68,7 +70,7 @@ var liriCommandType = process.argv[2];
 	 	};
 	 	//console.log(songTitle);
 	 	spotify
-	 		.search({ type: 'track', query: songTitle })
+	 		.search({ type: 'track', query: songTitle, limit: 1 })
 	 		.then(function(response) {
 	 			var songData = JSON.stringify(response, null, 2);
 	 			fs.writeFile('songData.txt', '', function() {
@@ -93,9 +95,62 @@ var liriCommandType = process.argv[2];
 	    		console.log(error);
 	  		});
 	}  		
-
  } else if (liriCommandType === `movie-this`) {
-
+ 	if (nodeArgs.length === 3) {
+ 		var queryUrl = "http://www.omdbapi.com/?t=Mr+Nobody&y=&plot=short&apikey=40e9cece";
+		request(queryUrl, function(error, response, body) {
+		  // If the request is successful
+		  if (!error && response.statusCode === 200) {
+		  	var movieData = JSON.stringify(JSON.parse(body), null, 2);
+		  	fs.writeFile('movieData.txt', '', function() {
+					//console.log('emptied');
+				fs.appendFile("movieData.txt", movieData, function(error) {
+					if (error) {
+						return console.log(error)
+					}
+					//console.log('overwritten');
+					console.log("\nMovie Title: " + movieData.Title);
+					console.log("Year: " + movieData.Year);
+					console.log("IMDB Rating: " + movieData.imdbRating);
+					console.log("Rotten Tomatoes Rating: " + movieData.Ratings[1].Value);
+					console.log("Country: " + movieData.Country);
+					console.log("Language: " + movieData.Language);
+					console.log("Plot: " + movieData.Plot);
+					console.log("Actors: " + movieData.Actors);
+				})
+			});	
+		   }	
+		});
+ 	} else {
+	 	for (var k=3; k<nodeArgs.length; k++) {
+		 		movieTitle = movieTitle + nodeArgs[k] + " ";
+		 	};
+		var queryUrl = "http://www.omdbapi.com/?t=" + movieTitle + "&y=&plot=short&apikey=40e9cece";
+		request(queryUrl, function(error, response, body) {
+		  // If the request is successful
+		  if (!error && response.statusCode === 200) {
+		  	var movieData = JSON.parse(body);
+		  	var movieDataPrettified = JSON.stringify(JSON.parse(body), null, 2);
+		  	fs.writeFile('movieData.txt', '', function() {
+					//console.log('emptied');
+				fs.appendFile("movieData.txt", movieDataPrettified, function(error) {
+					if (error) {
+						return console.log(error)
+					}
+					//console.log('overwritten');
+					console.log("\nMovie Title: " + movieData.Title);
+					console.log("Year: " + movieData.Year);
+					console.log("IMDB Rating: " + movieData.imdbRating);
+					console.log("Rotten Tomatoes Rating: " + movieData.Ratings[1].Value);
+					console.log("Country: " + movieData.Country);
+					console.log("Language: " + movieData.Language);
+					console.log("Plot: " + movieData.Plot);
+					console.log("Actors: " + movieData.Actors);
+				})
+			});	
+		   }	
+		});
+	}
  } else if (liriCommandType === `do-what-it-says`) {
 
  };
