@@ -1,6 +1,6 @@
 {
   "tracks": {
-    "href": "https://api.spotify.com/v1/search?query=I+Want+It+That+Way&type=track&offset=0&limit=1",
+    "href": "https://api.spotify.com/v1/search?query=I+Want+it+that+way+&type=track&offset=0&limit=1",
     "items": [
       {
         "album": {
@@ -199,7 +199,7 @@
       }
     ],
     "limit": 1,
-    "next": "https://api.spotify.com/v1/search?query=I+Want+It+That+Way&type=track&offset=1&limit=1",
+    "next": "https://api.spotify.com/v1/search?query=I+Want+it+that+way+&type=track&offset=1&limit=1",
     "offset": 0,
     "previous": null,
     "total": 529

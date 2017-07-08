@@ -75,12 +75,10 @@ function spotifyNoArgs () {
  		.then(function(response) {
  			var songData = JSON.stringify(response, null, 2);
  			fs.writeFile('songData.txt', '', function() {
- 				//console.log('emptied');
  				fs.appendFile("songData.txt", songData, function(error) {
 					if (error) {
 						return console.log(error)
 					}
-					//console.log('overwritten');
 					console.log("\nArtist: " + response.tracks.items[4].artists[0].name);
 					console.log("Song Name: " + response.tracks.items[4].name);
 					if (response.tracks.items[4].preview_url === null) {
@@ -101,18 +99,15 @@ function spotifyWithArgs () {
 	for (var j=3; j<nodeArgs.length; j++) {
 	 	songTitle = songTitle + nodeArgs[j] + " ";
 	};
-	 	//console.log(songTitle);
  	spotify
  		.search({ type: 'track', query: songTitle, limit: 1 })
  		.then(function(response) {
  			var songData = JSON.stringify(response, null, 2);
  			fs.writeFile('songData.txt', '', function() {
- 				//console.log('emptied');
  				fs.appendFile("songData.txt", songData, function(error) {
 					if (error) {
 						return console.log(error)
 					}
-					//console.log('overwritten');
 					console.log("\nArtist: " + response.tracks.items[0].artists[0].name);
 					console.log("Song Name: " + response.tracks.items[0].name);
 					if (response.tracks.items[0].preview_url === null) {
@@ -132,17 +127,14 @@ function spotifyWithArgs () {
 function movieSearch () {
 	var queryUrl = "http://www.omdbapi.com/?t=" + movieTitle + "&y=&plot=short&apikey=40e9cece";
 	request(queryUrl, function(error, response, body) {
-	  // If the request is successful
 	  if (!error && response.statusCode === 200) {
 	  	var movieData = JSON.parse(body);
 		var movieDataPrettified = JSON.stringify(movieData, null, 2);
 	  	fs.writeFile('movieData.txt', '', function() {
-				//console.log('emptied');
 			fs.appendFile("movieData.txt", movieDataPrettified, function(error) {
 				if (error) {
 					return console.log(error)
 				}
-				//console.log('overwritten');
 				console.log("\nMovie Title: " + movieData.Title);
 				console.log("Year: " + movieData.Year);
 				console.log("IMDB Rating: " + movieData.imdbRating);
